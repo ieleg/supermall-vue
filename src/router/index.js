@@ -2,9 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 //懒加载导入
 const home = () =>import('@/views/home/home.vue');
-const catalog = () =>import('../views/catalog/catalog.vue');
-const buy = () =>import('../views/buy/buy.vue');
-const profile = () =>import('../views/profile/profile.vue');
+const catalog = () =>import('@/views/catalog/catalog.vue');
+const buy = () =>import('@/views/buy/buy.vue');
+const profile = () =>import('@/views/profile/profile.vue');
 Vue.use(Router)
 const routerPush = Router.prototype.push
 Router.prototype.push = function push(location) {

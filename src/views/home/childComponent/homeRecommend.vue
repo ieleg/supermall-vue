@@ -31,7 +31,7 @@ export default {
     font-size: 12px;
     padding-top: 8px;
     padding-bottom: 15px;
-    box-shadow: 5px 0 3px rgba(100, 100, 100, 0.8);
+    box-shadow: 5px 0 3px rgba(100, 100, 100, 0.8c);
   }
   .recommendItem{
     flex: 1;

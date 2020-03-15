@@ -17,6 +17,7 @@ export default {
   methods:{
     change(index){
       this.currentIndex=index;
+      this.$emit('tabclick',index)
     }
   },
   props:{

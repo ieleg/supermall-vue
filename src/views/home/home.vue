@@ -6,8 +6,8 @@
      <homeSwiper :banner="banner" />
      <recommend :recommend='recommend' />
      <specialGood />
-     <tabControl class="tabControl" :title="['流行','新款','精选']"/>
-     <goodList :goods="goods['new'].list" />
+     <tabControl class="tabControl" :title="['流行','新款','精选']" @tabclick='changetg'/>
+     <goodList :goods="goods[currentType].list" />
      <!-- <ul>
        <li>a</li>
        <li>a</li>
@@ -79,12 +79,20 @@ export default {
       recommend:[],
       goods:{
         pop:{page:1,list:[]},
-        new:{page:2,list:[]},
-        sell:{page:3,list:[]}
-      }
+        new:{page:1,list:[]},
+        sell:{page:1,list:[]}
+      },
+      currentType: 'pop'
     }
   },
   methods:{
+    changetg(index){
+      switch(index){
+        case 0: this.currentType = 'pop';break;
+        case 1: this.currentType = 'sell';break;
+        case 2: this.currentType = 'new';break;
+      }
+    },
     getHomeGood(type){
       const page = this.goods[type].page;
       getHomeGoods(type,page).then(res =>{
@@ -130,5 +138,7 @@ export default {
   .tabControl{
       position: sticky;
       top: 44px;
+      /* 不被遮住 */
+      z-index: 9;
   }
 </style>

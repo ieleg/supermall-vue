@@ -3,11 +3,13 @@
     <navbar class="navbar">
       <div slot="center">购物街</div>
     </navbar>
+    <scroll class="content">
      <homeSwiper :banner="banner" />
      <recommend :recommend='recommend' />
      <specialGood />
      <tabControl class="tabControl" :title="['流行','新款','精选']" @tabclick='changetg'/>
      <goodList :goods="goods[currentType].list" />
+    </scroll>
      <!-- <ul>
        <li>a</li>
        <li>a</li>
@@ -57,12 +59,14 @@
 <script>
 import {getHomeMultidata,getHomeGoods} from '@/network/home'
 
+import scroll from '@/components/common/scroll/scroll'
 import navbar from '@/components/common/navbar/navbar'
 import homeSwiper from './childComponent/homeSwiper'
 import recommend from './childComponent/homeRecommend'
 import specialGood from './childComponent/specialGood'
 import tabControl from '@/components/content/tabControl/tabControl'
 import goodList from '@/components/content/goods/goodList'
+
 
 export default {
   components:{
@@ -71,7 +75,9 @@ export default {
     recommend,
     specialGood,
     tabControl,
-    goodList
+    goodList,
+    scroll
+    
   },
   data(){
     return {
@@ -140,5 +146,15 @@ export default {
       top: 44px;
       /* 不被遮住 */
       z-index: 9;
+  }
+  #home{
+    height: 100vh;
+    position: relative;
+  }
+  .content{
+    position: absolute;
+    top: 44px;
+    bottom: 49px;
+    overflow: hidden;
   }
 </style>

@@ -3,13 +3,21 @@
     <navbar class="navbar">
       <div slot="center">购物街</div>
     </navbar>
-    <scroll class="content">
-     <homeSwiper :banner="banner" />
-     <recommend :recommend='recommend' />
-     <specialGood />
-     <tabControl class="tabControl" :title="['流行','新款','精选']" @tabclick='changetg'/>
-     <goodList :goods="goods[currentType].list" />
-    </scroll>
+
+      <scroll class="content" ref="scroll"
+       @scrollon="showbacktop" 
+       @pullup='pullup'>
+        <homeSwiper :banner="banner" />
+        <recommend :recommend='recommend' />
+        <specialGood />
+        <tabControl class="tabControl" :title="['流行','新款','精选']" @tabclick='changetg'/>
+        <keep-alive>
+          <goodList :goods="goods[currentType].list" />
+        </keep-alive>
+    
+      </scroll>
+    
+     <backTop @click.native="returnTop" v-show="isShow"/>
      <!-- <ul>
        <li>a</li>
        <li>a</li>
@@ -66,6 +74,7 @@ import recommend from './childComponent/homeRecommend'
 import specialGood from './childComponent/specialGood'
 import tabControl from '@/components/content/tabControl/tabControl'
 import goodList from '@/components/content/goods/goodList'
+import backTop from '@/components/content/backtop/backtop'
 
 
 export default {
@@ -76,7 +85,8 @@ export default {
     specialGood,
     tabControl,
     goodList,
-    scroll
+    scroll,
+    backTop
     
   },
   data(){
@@ -88,10 +98,47 @@ export default {
         new:{page:1,list:[]},
         sell:{page:1,list:[]}
       },
-      currentType: 'pop'
+      currentType: 'pop',
+      isShow:false
     }
   },
+  mounted(){
+    const refresh = this.debonce(this.$refs.scroll.refresh,1);
+    this.$bus.$on('itemimgload',() => {
+      // console.log('11111111111');
+      // this.$refs.scroll.bs.refresh();
+      refresh();
+    })
+  },
   methods:{
+    // 防抖动函数
+    debonce(func,delay){
+      let timer = null;
+      // console.log(func);
+      return function(...args){
+        // console.log(args);
+        
+        if(timer){
+          clearTimeout(timer);
+        }
+        timer = setTimeout(() => {
+          func.call(this,args)
+        }, delay);
+      }
+    },
+    pullup(){
+      this.getHomeGood(this.currentType);
+      // this.$refs.scroll.bs.refresh();
+    },
+    showbacktop(position){
+      // console.log(position);
+      
+      this.isShow = (-position.y) > 800;
+    },
+    returnTop(){
+      console.log('123');
+      this.$refs.scroll.bs.scrollTo(0,-44,600);
+    },
     changetg(index){
       switch(index){
         case 0: this.currentType = 'pop';break;
@@ -106,6 +153,8 @@ export default {
 
         this.goods[type].list.push(...res.data.data.list);
         this.goods[type].page++;
+        //完成上拉加载更多
+        this.$refs.scroll.bs.finishPullUp();
       }).catch( err =>{
         console.log(err);
 
@@ -125,7 +174,8 @@ export default {
     this.getHomeGood('pop');
     this.getHomeGood('sell');
     this.getHomeGood('new');
-  }
+  },
+  
 
 }
 </script>

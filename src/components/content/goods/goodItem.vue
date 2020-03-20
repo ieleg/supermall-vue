@@ -1,6 +1,6 @@
 <template>
   <div class="gooditem">
-    <img :src="goodsitem.show.img" alt="">
+    <img :src="goodsitem.show.img" alt="" @load="imgUpdate">
     <div class="itemInfo">
       <p>{{goodsitem.title}}</p>
       <span class="price">{{(goodsitem.price)}}</span>
@@ -18,17 +18,22 @@ export default {
         return {}
       }
     }
+  },
+  methods:{
+    imgUpdate(){
+      this.$bus.$emit('itemimgload');
+    }
   }
 }
 </script>
 
-<style>
+<style scoped>
   .gooditem{
     width: 32%;
     padding-bottom: 40px;
     position: relative;
   }
-  img{
+  .gooditem img{
     width: 100%;
     border-radius: 3px;
   }

@@ -45,7 +45,7 @@ export default {
     background-color: #fff;
   }
   .tabControl{
-    margin-top: -15px;
+    /* margin-top: 0px; */
     display: flex;
     text-align: center;
     font-size: 14px;

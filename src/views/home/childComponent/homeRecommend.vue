@@ -40,6 +40,6 @@ export default {
   .recommend img{
     width: 68px;
     height: 68px;
-    margin-bottom: 8px;
+    /* margin-bottom: 8px; */
   }
 </style>

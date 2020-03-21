@@ -3,14 +3,23 @@
     <navbar class="navbar">
       <div slot="center">购物街</div>
     </navbar>
+    <tabControl class="tabControl0" 
+    :title="['流行','新款','精选']" 
+    v-show="isTabFixed"
+    ref="tabControl0"
+    @tabclick='changetg'/>
 
       <scroll class="content" ref="scroll"
        @scrollon="showbacktop" 
        @pullup='pullup'>
-        <homeSwiper :banner="banner" />
+        <homeSwiper :banner="banner" @swiperupdate='listentop'/>
         <recommend :recommend='recommend' />
         <specialGood />
-        <tabControl class="tabControl" :title="['流行','新款','精选']" @tabclick='changetg'/>
+        <tabControl :class="{fixed:isTabFixed}"
+         :title="['流行','新款','精选']" 
+        ref="tabControl" 
+        @tabclick='changetg'
+        />
         <keep-alive>
           <goodList :goods="goods[currentType].list" />
         </keep-alive>
@@ -94,12 +103,14 @@ export default {
       banner:[],
       recommend:[],
       goods:{
-        pop:{page:1,list:[]},
-        new:{page:1,list:[]},
-        sell:{page:1,list:[]}
+        pop: {page: 1,list: []},
+        new: {page: 1,list: []},
+        sell: {page: 1,list: []}
       },
       currentType: 'pop',
-      isShow:false
+      isShow: false,
+      tabControlOffsetTop: 0,
+      isTabFixed: false
     }
   },
   mounted(){
@@ -109,9 +120,17 @@ export default {
       // this.$refs.scroll.bs.refresh();
       refresh();
     })
+    setTimeout(() => {
+    }, 200);
+    
   },
   methods:{
     // 防抖动函数
+    listentop(){
+      console.log(this.$refs.tabControl.$el.offsetTop);
+      this.tabControlOffsetTop = this.$refs.tabControl.$el.offsetTop;
+
+    },
     debonce(func,delay){
       let timer = null;
       // console.log(func);
@@ -134,6 +153,9 @@ export default {
       // console.log(position);
       
       this.isShow = (-position.y) > 800;
+      // 判断有无吸顶
+      this.isTabFixed = (-position.y-44 > this.tabControlOffsetTop);
+      
     },
     returnTop(){
       console.log('123');
@@ -145,6 +167,9 @@ export default {
         case 1: this.currentType = 'sell';break;
         case 2: this.currentType = 'new';break;
       }
+      this.$refs.tabControl0.currentIndex = index;
+      this.$refs.tabControl.currentIndex = index;
+
     },
     getHomeGood(type){
       const page = this.goods[type].page;
@@ -185,17 +210,21 @@ export default {
   .navbar{
     background-color: var(--color-tint);
     color: #fff;
-    position: fixed;
-    left: 0;
+    /* position: fixed; */
+    /* left: 0;
     right: 0;
     top: 0;
-    z-index: 9;
+    z-index: 9; */
   }
-  .tabControl{
-      position: sticky;
+  /* .fixed{
+      position: fixed;
       top: 44px;
-      /* 不被遮住 */
+      不被遮住
       z-index: 9;
+  } */
+  .tabControl0{
+    position: relative;
+    z-index: 9;
   }
   #home{
     height: 100vh;
@@ -206,5 +235,6 @@ export default {
     top: 44px;
     bottom: 49px;
     overflow: hidden;
+    /* background-color: #fff; */
   }
 </style>

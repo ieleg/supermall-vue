@@ -10,6 +10,7 @@
     @tabclick='changetg'/>
 
       <scroll class="content" ref="scroll"
+      :pro='3'
        @scrollon="showbacktop" 
        @pullup='pullup'>
         <homeSwiper :banner="banner" @swiperupdate='listentop'/>
@@ -20,9 +21,8 @@
         ref="tabControl" 
         @tabclick='changetg'
         />
-        <keep-alive>
-          <goodList :goods="goods[currentType].list" />
-        </keep-alive>
+        <goodList :goods="goods[currentType].list" />
+  
     
       </scroll>
     
@@ -98,6 +98,19 @@ export default {
     backTop
     
   },
+  destroyed(){
+    console.log('destroyed');
+  },
+  activated(){
+    // 第三个参数为0或者没有会出现回到顶部的bug
+    this.$refs.scroll.refresh();
+
+    this.$refs.scroll.bs.scrollTo(0,this.saveY,0);
+  },
+  deactivated(){
+    this.saveY = this.$refs.scroll.bs.y;
+    console.log(this.saveY);
+  },
   data(){
     return {
       banner:[],
@@ -110,11 +123,12 @@ export default {
       currentType: 'pop',
       isShow: false,
       tabControlOffsetTop: 0,
-      isTabFixed: false
+      isTabFixed: false,
+      saveY:0
     }
   },
   mounted(){
-    const refresh = this.debonce(this.$refs.scroll.refresh,1);
+    const refresh = this.debonce(this.$refs.scroll.refresh,50);
     this.$bus.$on('itemimgload',() => {
       // console.log('11111111111');
       // this.$refs.scroll.bs.refresh();
@@ -174,7 +188,7 @@ export default {
     getHomeGood(type){
       const page = this.goods[type].page;
       getHomeGoods(type,page).then(res =>{
-        console.log(res.data.data.list);
+        // console.log(res.data.data.list);
 
         this.goods[type].list.push(...res.data.data.list);
         this.goods[type].page++;
@@ -190,7 +204,7 @@ export default {
       // console.log(res.data); 
       this.banner = res.data.data.banner.list;
       this.recommend = res.data.data.recommend.list
-      console.log(this);  
+      // console.log(this);  
     })
     }
   },

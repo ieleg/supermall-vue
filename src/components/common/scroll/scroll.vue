@@ -14,11 +14,25 @@ export default {
       bs:null
     }
   },  
+  props:{
+    pro:{
+      type:Number,
+      default(){
+        return 1
+      }
+    }
+  },
   mounted(){
     this.bs = new BScroll('.wrapper',{
       probeType:2,
       pullUpLoad:true,
-      click:true
+      click:true,
+      // momentumLimitDistance:10,
+      swipeTime:800
+      // HWCompositing:true,
+      // deceleration:0.0007,
+      // flickLimitTime:100,
+      // momentumLimitTime:1000
     })
 
     this.bs.on('scroll',position => {

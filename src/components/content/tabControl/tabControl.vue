@@ -31,7 +31,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .active span{
     color: var(--color-tint);
     padding:0 5px 8px 5px;

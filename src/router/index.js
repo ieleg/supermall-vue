@@ -5,6 +5,8 @@ const home = () =>import('@/views/home/home.vue');
 const catalog = () =>import('@/views/catalog/catalog.vue');
 const buy = () =>import('@/views/buy/buy.vue');
 const profile = () =>import('@/views/profile/profile.vue');
+const details = () =>import('@/views/details/details.vue');
+
 Vue.use(Router)
 const routerPush = Router.prototype.push
 Router.prototype.push = function push(location) {
@@ -31,6 +33,10 @@ export default new Router({
     {
       path:'/profile',
       component:profile
+    },
+    {
+      path: '/details/:iid',
+      component:details
     }
   ],
   mode:'history'

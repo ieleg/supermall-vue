@@ -190,7 +190,7 @@ export default {
       getHomeGoods(type,page).then(res =>{
         // console.log(res.data.data.list);
 
-        this.goods[type].list.push(...res.data.data.list);
+        this.goods[type].list.push(...res.data.list);
         this.goods[type].page++;
         //完成上拉加载更多
         this.$refs.scroll.bs.finishPullUp();
@@ -202,8 +202,8 @@ export default {
     getHomeMultidata(){
       getHomeMultidata().then(res => {
       // console.log(res.data); 
-      this.banner = res.data.data.banner.list;
-      this.recommend = res.data.data.recommend.list
+      this.banner = res.data.banner.list;
+      this.recommend = res.data.recommend.list
       // console.log(this);  
     })
     }

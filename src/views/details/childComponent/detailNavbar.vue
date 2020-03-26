@@ -1,7 +1,7 @@
 <template>
   <div>
     <navbar>
-      <div slot="left" class="back">
+      <div slot="left" class="back" @click="backClick">
         <img src="~assets/img/details/back.svg" alt="">
       </div>
       <div class="center" slot="center">
@@ -26,6 +26,9 @@ export default {
     }
   },
   methods:{
+    backClick(){
+      this.$router.go(-1);
+    },
     change(index){
       this.currentIndex = index;
     }

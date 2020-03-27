@@ -2,6 +2,7 @@
   <div id="details">
     <detailNavbar></detailNavbar>
     <detailSwiper :topimg="topImg"></detailSwiper>
+    <detailBaseInfo :goods='goodsInfo'></detailBaseInfo>
 
   </div>
 </template>
@@ -9,16 +10,18 @@
 <script>
 import detailNavbar from './childComponent/detailNavbar'
 import detailSwiper from './childComponent/detailSwiper'
-import {getDetail} from '@/network/details'
+import detailBaseInfo from './childComponent/detailBaseInfo'
+import {getDetail,goods} from '@/network/details'
 export default {
   name:'details',
   components:{
-    detailNavbar,detailSwiper
+    detailNavbar,detailSwiper,detailBaseInfo
   },
   data(){
     return {
       iid:{},
-      topImg:[]
+      topImg:[],
+      goodsInfo: {}
     }
   },
   created(){
@@ -30,9 +33,13 @@ export default {
       console.log(res);
       this.topImg = res.result.itemInfo.topImages;
       // console.log(this.topImg);
-      
+       // 3创建商品对象
+      this.goodsInfo = new goods(res.result.columns,res.result.itemInfo,res.result.shopInfo.services)
+      console.log(this.goodsInfo);
       
     })
+   
+
   }
 
 }

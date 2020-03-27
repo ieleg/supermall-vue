@@ -1,7 +1,7 @@
 <template>
   <swiper class="detail-swiper">
     <swiper-item v-for="item in topimg" :key="item">
-        <img @load="imgLoad(item)" :src="item" alt="">
+        <img  :src="item" alt="">
     </swiper-item>
   </swiper>
 </template>
@@ -22,10 +22,7 @@ export default {
     Swiper,SwiperItem
   },
   methods:{
-    imgLoad(item){
-      console.log('ok');
-      
-    }
+
   }
 
 }

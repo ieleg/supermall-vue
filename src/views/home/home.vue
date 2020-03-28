@@ -188,7 +188,7 @@ export default {
     getHomeGood(type){
       const page = this.goods[type].page;
       getHomeGoods(type,page).then(res =>{
-        // console.log(res.data.data.list);
+        console.log(res);
 
         this.goods[type].list.push(...res.data.list);
         this.goods[type].page++;
@@ -219,7 +219,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
   .navbar{
     background-color: var(--color-tint);

@@ -37,7 +37,6 @@ export default {
 
 <style scoped>
   .base-info{
-    height: 250px;
     margin-top: 6px;
   }
   .info-title{
@@ -47,12 +46,14 @@ export default {
     position: relative;
     height: 40px;
     text-align: middle;
+    box-shadow: 0 1px 1px rgba(100, 100, 100, .2);
   }
   .n-price{
     line-height: 40px;
     font-size: 22px;
     margin-right: 15px;
     color: var(--color-tint);
+    margin-left: 8px;
   }
   .o-price{
     text-decoration:line-through;
@@ -73,7 +74,10 @@ export default {
   }
   .info-other{
     display: flex;
+    height: 30px;
     justify-content:space-between;
+    /* box-shadow: 0 3px 1px rgba(100, 100, 100, .2); */
+    align-items: center;
     font-weight: lighter;
     font-size: 14px;
   }
@@ -81,6 +85,7 @@ export default {
     display: flex;
     justify-content:space-between;
     height: 50px;
+    box-shadow: 0 2px 1px rgba(100, 100, 100, .1);
     font-size: 14px;
   }
   .info-service span{

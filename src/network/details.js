@@ -4,7 +4,7 @@ import {request} from './request'
 
 export function getDetail(iid){
   return request({
-     url:'/api/h3/detail',
+     url:'/detail',
      params:{
        iid
       }

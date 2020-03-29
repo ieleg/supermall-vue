@@ -135,8 +135,7 @@ export default {
       refresh();
     })
     setTimeout(() => {
-    }, 200);
-    
+    }, 200);    
   },
   methods:{
     // 防抖动函数

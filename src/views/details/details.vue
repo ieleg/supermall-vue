@@ -1,10 +1,11 @@
 <template>
   <div id="details">
     <detailNavbar></detailNavbar>
-    <scroll :pro='1' class="content">
+    <scroll :pro='1' class="content" ref="scroll">
       <detailSwiper :topimg="topImg"></detailSwiper>
       <detailBaseInfo :goods='goodsInfo'></detailBaseInfo>
       <detailShopInfo :shop='shop'></detailShopInfo>
+      <detailImgInfo :info='detailImgInfo'></detailImgInfo>
     </scroll>
   </div>
 </template>
@@ -13,24 +14,53 @@
 import detailNavbar from './childComponent/detailNavbar'
 import detailSwiper from './childComponent/detailSwiper'
 import detailShopInfo from './childComponent/detailShopInfo'
-
 import detailBaseInfo from './childComponent/detailBaseInfo'
+import detailImgInfo from './childComponent/detailImgInfo'
+
+
 import scroll from '@/components/common/scroll/scroll'
 
 import {getDetail,goods} from '@/network/details'
 export default {
   name:'details',
   components:{
-    detailNavbar,detailSwiper,detailBaseInfo,scroll,detailShopInfo
+    detailNavbar,detailSwiper,detailBaseInfo,scroll,detailShopInfo,detailImgInfo
+  },
+  methods:{
+   debonce(func,delay){
+     let timer = null;
+    // console.log(func);
+     return function(...args){
+        // console.log(args);
+       if(timer){
+         clearTimeout(timer);
+       }
+       timer = setTimeout(() => {
+         func.call(this,args)
+        }, delay);
+      }
+    },
   },
   data(){
     return {
       iid:{},
       topImg:[],
       goodsInfo: {},
-      shop: {}
+      shop: {},
+      detailImgInfo: {}
     }
   },
+  mounted(){
+    const refresh = this.debonce(this.$refs.scroll.refresh,50);
+    this.$bus.$on('itemimgload',() => {
+      // console.log('11111111111');
+      // this.$refs.scroll.bs.refresh();
+      refresh();
+    })
+    setTimeout(() => {
+    }, 200);    
+  },
+
   created(){
     // console.log(this.$route);
     //1保存传入的iid
@@ -42,7 +72,10 @@ export default {
       // console.log(this.topImg);
        // 3创建商品对象
       this.goodsInfo = new goods(res.result.columns,res.result.itemInfo,res.result.shopInfo.services);
+      // 4取出店铺信息
       this.shop = res.result.shopInfo;
+      // 5取出商品图片详情信息
+      this.detailImgInfo = res.result.detailInfo;
       console.log(this.goodsInfo);
       
     })

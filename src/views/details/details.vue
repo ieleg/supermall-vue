@@ -6,6 +6,7 @@
       <detailBaseInfo :goods='goodsInfo'></detailBaseInfo>
       <detailShopInfo :shop='shop'></detailShopInfo>
       <detailImgInfo :info='detailImgInfo'></detailImgInfo>
+      <detailParams :item-params='itemParams'></detailParams>
     </scroll>
   </div>
 </template>
@@ -16,6 +17,7 @@ import detailSwiper from './childComponent/detailSwiper'
 import detailShopInfo from './childComponent/detailShopInfo'
 import detailBaseInfo from './childComponent/detailBaseInfo'
 import detailImgInfo from './childComponent/detailImgInfo'
+import detailParams from './childComponent/detailParams'
 
 
 import scroll from '@/components/common/scroll/scroll'
@@ -24,7 +26,8 @@ import {getDetail,goods} from '@/network/details'
 export default {
   name:'details',
   components:{
-    detailNavbar,detailSwiper,detailBaseInfo,scroll,detailShopInfo,detailImgInfo
+    detailNavbar,detailSwiper,detailBaseInfo,scroll,detailShopInfo,detailImgInfo,
+    detailParams
   },
   methods:{
    debonce(func,delay){
@@ -47,7 +50,8 @@ export default {
       topImg:[],
       goodsInfo: {},
       shop: {},
-      detailImgInfo: {}
+      detailImgInfo: {},
+      itemParams:{}
     }
   },
   mounted(){
@@ -76,6 +80,8 @@ export default {
       this.shop = res.result.shopInfo;
       // 5取出商品图片详情信息
       this.detailImgInfo = res.result.detailInfo;
+      // 6取出参数信息
+      this.itemParams = res.result.itemParams;
       console.log(this.goodsInfo);
       
     })

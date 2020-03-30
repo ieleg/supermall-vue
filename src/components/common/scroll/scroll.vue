@@ -42,7 +42,6 @@ export default {
     this.bs.on('pullingUp',() => {
       console.log('shan啦加载更多');
       this.$emit('pullup');
-      
     })      
     // this.bs.on('scroll',position => {
     //   // console.log(position);
@@ -54,7 +53,7 @@ export default {
   },
   methods:{
     refresh(){
-      console.log('图片加载');
+      console.log('图片加载 ');
       
       this.bs&&this.bs.refresh();
     }

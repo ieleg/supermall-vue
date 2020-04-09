@@ -130,26 +130,22 @@ export default {
   mounted(){
     const refresh = this.debonce(this.$refs.scroll.refresh,50);
     this.$bus.$on('itemimgload',() => {
-      // console.log('11111111111');
-      // this.$refs.scroll.bs.refresh();
       refresh();
     })
     setTimeout(() => {
     }, 200);    
   },
   methods:{
-    // 防抖动函数
     listentop(){
+      // 等轮播图加载完之后，在计算tabcontrol的位置，要不然高度会不准
       console.log(this.$refs.tabControl.$el.offsetTop);
       this.tabControlOffsetTop = this.$refs.tabControl.$el.offsetTop;
-
     },
     debonce(func,delay){
       let timer = null;
       // console.log(func);
       return function(...args){
         // console.log(args);
-        
         if(timer){
           clearTimeout(timer);
         }
@@ -182,6 +178,7 @@ export default {
       }
       this.$refs.tabControl0.currentIndex = index;
       this.$refs.tabControl.currentIndex = index;
+      this.$refs.scroll.bs.scrollTo(0,-this.tabControlOffsetTop-44,100);
 
     },
     getHomeGood(type){
@@ -213,28 +210,14 @@ export default {
     this.getHomeGood('sell');
     this.getHomeGood('new');
   },
-  
-
 }
 </script>
 
 <style scoped>
-
   .navbar{
     background-color: var(--color-tint);
     color: #fff;
-    /* position: fixed; */
-    /* left: 0;
-    right: 0;
-    top: 0;
-    z-index: 9; */
   }
-  /* .fixed{
-      position: fixed;
-      top: 44px;
-      不被遮住
-      z-index: 9;
-  } */
   .tabControl0{
     position: relative;
     z-index: 9;

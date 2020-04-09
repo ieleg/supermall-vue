@@ -1,4 +1,4 @@
-import {request} from './request'
+import {request, request2} from './request'
 
 
 
@@ -10,6 +10,13 @@ export function getDetail(iid){
       }
     })
   }
+export function getRecommend(){
+  return request({
+    url:'./recommend'
+  })
+}
+
+
 
   export class goods{
     constructor(columns,itemInfo,service){

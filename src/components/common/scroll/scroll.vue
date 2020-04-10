@@ -54,7 +54,6 @@ export default {
   methods:{
     refresh(){
       console.log('图片加载 ');
-      
       this.bs&&this.bs.refresh();
     }
   }

@@ -1,15 +1,16 @@
 <template>
   <div id="details">
     <detailNavbar @titleClick="returnPosiation"></detailNavbar>
-    <scroll :pro='1' class="content" ref="scroll">
+    <scroll :pro='1' class="content" ref="scroll" @scrollon="showbacktop">
       <detailSwiper :topimg="topImg"></detailSwiper>
       <detailBaseInfo :goods='goodsInfo'></detailBaseInfo>
       <detailShopInfo :shop='shop'></detailShopInfo>
-      <detailImgInfo :info='detailImgInfo'></detailImgInfo>
+      <detailImgInfo :info='detailImgInfo' @detailItemimgload="detailItemimgload"></detailImgInfo>
       <detailParams ref="detailParams" :item-params='itemParams'></detailParams>
       <comments ref="comments" :comment='commentInfo'></comments>
       <goodList ref="goodList" :goods='recommend'></goodList>
-    </scroll>       
+    </scroll>   
+    <backTop @click.native="returnTop" v-show="isShow"/>    
   </div>
 </template>
 
@@ -22,7 +23,7 @@ import detailImgInfo from './childComponent/detailImgInfo'
 import detailParams from './childComponent/detailParams'
 import comments from './childComponent/comments'
 import goodList from '@/components/content/goods/goodList'
- 
+import backTop from '@/components/content/backtop/backtop'
 
 
 import scroll from '@/components/common/scroll/scroll'
@@ -33,7 +34,7 @@ export default {
   name:'details',
   components:{
     detailNavbar,detailSwiper,detailBaseInfo,scroll,detailShopInfo,detailImgInfo,detailParams,comments,
-    goodList
+    goodList,backTop,
   },
   methods:{
    debonce(func,delay){
@@ -51,7 +52,25 @@ export default {
     },
     returnPosiation(index){
       this.$refs.scroll.bs.scrollTo(0,-this.titleYs[index],100);
-    }
+    },
+    //图片加载后
+    detailItemimgload(){
+      //防抖刷新
+      this.newFresh();
+      //防抖获取位置
+      this.getThemeTop();
+    },
+    showbacktop(position){
+      // console.log(position);
+      
+      this.isShow = (-position.y) > 800;
+      // 判断有无吸顶
+      
+    },
+    returnTop(){
+      this.$refs.scroll.bs.scrollTo(0,0,600);
+    },
+  
   },
   data(){
     return {
@@ -63,35 +82,21 @@ export default {
       itemParams:{},
       commentInfo:{},
       recommend:[],
-      titleYs:[0],
+      titleYs:[],
+      getThemeTop:null,
+      newFresh:null,
+      isShow: false,
     }
   },
   // methods:{
 
   // },
   mounted(){
-    //延时初步解决
-    setTimeout(() => {
-    this.titleYs.push(this.$refs.comments.$el.offsetTop);
-    this.titleYs.push(this.$refs.goodList.$el.offsetTop);
-    this.titleYs.push(this.$refs.detailParams.$el.offsetTop);
-    }, 200);
-    console.log(this.titleYs);
-    
-
-    const refresh = this.debonce(this.$refs.scroll.refresh,50);
-    this.$bus.$on('detailItemimgload',() => {
-      // console.log('11111111111');
-      // this.$refs.scroll.bs.refresh();
-      refresh();     
-    })
-    setTimeout(() => {
-    }, 200); 
-    // console.log(request2());
-    
     
   },
+  updated(){
 
+  },
   created(){
     // console.log(this.$route);
     //1保存传入的iid
@@ -121,6 +126,18 @@ export default {
      console.log(res);
      this.recommend = res.data.list
    })
+   //防抖获得位置
+    this.getThemeTop = this.debonce(() => {
+    this.titleYs = [];
+    this.titleYs.push(0);
+    this.titleYs.push(this.$refs.comments.$el.offsetTop);
+    this.titleYs.push(this.$refs.goodList.$el.offsetTop);
+    this.titleYs.push(this.$refs.detailParams.$el.offsetTop);
+    console.log(this.titleYs);
+    },100);
+    this.newFresh = this.debonce(() => {
+    this.$refs.scroll.refresh();
+    },100);
 
   }
 

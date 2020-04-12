@@ -19,10 +19,13 @@ export default {
   components:{
     navbar,
   },
+  porps:{
+
+  },
   data(){
     return{
-      mes:['商品','评论','推荐','参数'],
-      currentIndex:0
+      mes:['商品','参数','评论','推荐'],
+       currentIndex:0
     }
   },
   methods:{

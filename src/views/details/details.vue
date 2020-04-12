@@ -1,6 +1,6 @@
 <template>
   <div id="details">
-    <detailNavbar @titleClick="returnPosiation"></detailNavbar>
+    <detailNavbar @titleClick="returnPosiation" ref="navbar"></detailNavbar>
     <scroll :pro='1' class="content" ref="scroll" @scrollon="showbacktop">
       <detailSwiper :topimg="topImg"></detailSwiper>
       <detailBaseInfo :goods='goodsInfo'></detailBaseInfo>
@@ -10,7 +10,8 @@
       <comments ref="comments" :comment='commentInfo'></comments>
       <goodList ref="goodList" :goods='recommend'></goodList>
     </scroll>   
-    <backTop @click.native="returnTop" v-show="isShow"/>    
+    <backTop @click.native="returnTop" v-show="isShow"/>  
+    <detailButtonBar></detailButtonBar>  
   </div>
 </template>
 
@@ -24,6 +25,7 @@ import detailParams from './childComponent/detailParams'
 import comments from './childComponent/comments'
 import goodList from '@/components/content/goods/goodList'
 import backTop from '@/components/content/backtop/backtop'
+import detailButtonBar from './childComponent/detailButtonBar'
 
 
 import scroll from '@/components/common/scroll/scroll'
@@ -34,7 +36,7 @@ export default {
   name:'details',
   components:{
     detailNavbar,detailSwiper,detailBaseInfo,scroll,detailShopInfo,detailImgInfo,detailParams,comments,
-    goodList,backTop,
+    goodList,backTop,detailButtonBar,
   },
   methods:{
    debonce(func,delay){
@@ -64,7 +66,16 @@ export default {
       // console.log(position);
       
       this.isShow = (-position.y) > 800;
-      // 判断有无吸顶
+      // 动态显示标题
+      if(-position.y>=this.titleYs[1]&&-position.y<this.titleYs[2]){
+        this.$refs.navbar.currentIndex = 1;
+      }else if(-position.y>=this.titleYs[2]&&-position.y<this.titleYs[3]){
+        this.$refs.navbar.currentIndex = 2;
+      }else if(-position.y>=this.titleYs[3]){
+        this.$refs.navbar.currentIndex = 3;
+      }else{
+        this.$refs.navbar.currentIndex = 0;
+      }
       
     },
     returnTop(){
@@ -130,9 +141,9 @@ export default {
     this.getThemeTop = this.debonce(() => {
     this.titleYs = [];
     this.titleYs.push(0);
+    this.titleYs.push(this.$refs.detailParams.$el.offsetTop);
     this.titleYs.push(this.$refs.comments.$el.offsetTop);
     this.titleYs.push(this.$refs.goodList.$el.offsetTop);
-    this.titleYs.push(this.$refs.detailParams.$el.offsetTop);
     console.log(this.titleYs);
     },100);
     this.newFresh = this.debonce(() => {

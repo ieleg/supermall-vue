@@ -70,14 +70,10 @@ export default {
   }
   .q2{
     background-color: red;
-    padding: 5px 5px;
+    padding: 5px 4px;
     border-radius: 0 25px 25px 0;
     line-height: 35px;
   }
-  .q1,.q2{
 
-    /* line-height: 10px; */
-
-  }
 
 </style>

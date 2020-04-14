@@ -11,7 +11,7 @@
       <goodList ref="goodList" :goods='recommend'></goodList>
     </scroll>   
     <backTop @click.native="returnTop" v-show="isShow"/>  
-    <detailButtonBar></detailButtonBar>  
+    <detailButtonBar @addCart="addCart"></detailButtonBar>  
   </div>
 </template>
 
@@ -39,7 +39,18 @@ export default {
     goodList,backTop,detailButtonBar,
   },
   methods:{
-   debonce(func,delay){
+    addCart(){
+      const obj = {};
+      obj.title = this.goodsInfo.title;
+      obj.price = this.goodsInfo.newPrice;
+      obj.img = this.topImg[0];
+      obj.iid = this.iid;
+      obj.count = 1;
+
+      //通过mutation修改state
+      this.$store.commit('addCart',obj);
+    },
+    debonce(func,delay){
      let timer = null;
     // console.log(func);
      return function(...args){
@@ -165,7 +176,7 @@ export default {
   .content{
     position: absolute;
     top:44px;
-    bottom: 0px;
+    bottom: 49px;
     overflow: hidden;
   }
 </style>

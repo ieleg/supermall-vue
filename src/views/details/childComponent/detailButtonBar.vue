@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="qright">
-      <div class="q1">加入购物车</div>
+      <div class="q1" @click="addCart">加入购物车</div>
       <div class="q2">立即购买</div>
     </div>
   </div>
@@ -23,6 +23,11 @@
 
 <script>
 export default {
+  methods:{
+    addCart(){
+      this.$emit("addCart");
+    }
+  }
 
 }
 </script>
@@ -50,6 +55,9 @@ export default {
   .qleft img{
     width: 75%;
   }
+  .qleft p{
+    margin-top: 2 px;
+  }
 
   .qright{
     display: flex;
@@ -59,20 +67,21 @@ export default {
 
      /* flex-wrap: nowrap; */
   }
+  .q1,.q2{
+    padding: 5px 13px;
+    color: #fff;
+    line-height: 35px;
+  }
   .q1{
  
     font-size: 15px;
-    background-color: blue;
-    padding: 5px 5px;
+    background-image: linear-gradient(left,#f1828d, #ec644b);
     border-radius: 25px 0 0 25px;
-    line-height: 35px;
 
   }
   .q2{
-    background-color: red;
-    padding: 5px 5px;
+    background-image: linear-gradient(left,#ff9478,#e9d460);
     border-radius: 0 25px 25px 0;
-    line-height: 35px;
   }
 
 

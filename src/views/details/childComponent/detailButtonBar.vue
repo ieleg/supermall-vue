@@ -75,12 +75,12 @@ export default {
   .q1{
  
     font-size: 15px;
-    background-image: linear-gradient(left,#f1828d, #ec644b);
+    background-image: linear-gradient(to left,#f1828d, #ec644b);
     border-radius: 25px 0 0 25px;
 
   }
   .q2{
-    background-image: linear-gradient(left,#ff9478,#e9d460);
+    background-image: linear-gradient(to left,#ff9478,#e9d460);
     border-radius: 0 25px 25px 0;
   }
 

@@ -8,20 +8,30 @@ export default new Vuex.Store({
     cartList:[],
   },
   mutations: {
-    addCart(state,payload){
-
-      //遍历键值  
-      for(let item of this.state.cartList){        
-        if(item.iid === payload.iid){   
-          item.count++;
-          return;
-        }
-      }
-      this.state.cartList.push(payload);
-     
+    addCount(state,payload){
+      // console.log(payload);
+      // console.log(this.state.cartList);
+      payload.count++;
+    },
+    addToCart(state,payload){
+      this.state.cartList.push(payload);  
     }
   },
   actions: {
+    addCart(context,payload){
+
+      //遍历键值  
+
+      for(let item of context.state.cartList){        
+        if(item.iid === payload.iid){   
+          context.commit('addCount',item)
+          return;
+        }
+      }
+        payload.count = 1;
+        context.commit('addToCart',payload);
+      
+    }
   },
   modules: {
   }

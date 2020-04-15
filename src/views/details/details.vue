@@ -2,6 +2,7 @@
   <div id="details">
     <detailNavbar @titleClick="returnPosiation" ref="navbar"></detailNavbar>
     <scroll :pro='1' class="content" ref="scroll" @scrollon="showbacktop">
+      
       <detailSwiper :topimg="topImg"></detailSwiper>
       <detailBaseInfo :goods='goodsInfo'></detailBaseInfo>
       <detailShopInfo :shop='shop'></detailShopInfo>
@@ -45,10 +46,10 @@ export default {
       obj.price = this.goodsInfo.newPrice;
       obj.img = this.topImg[0];
       obj.iid = this.iid;
-      obj.count = 1;
+      // obj.count = 1;
 
       //通过mutation修改state
-      this.$store.commit('addCart',obj);
+      this.$store.dispatch('addCart',obj);
     },
     debonce(func,delay){
      let timer = null;

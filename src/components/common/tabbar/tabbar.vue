@@ -17,9 +17,10 @@ export default {
     left: 0;
     right: 0;
     bottom: 0;
+    width: 100vw;
     background-color: #f6f6f6;
     box-shadow: 0 -5px 1px rgba(146, 171, 173, 0.2);
-    z-index: 1;
+    z-index: 2;
   
   }
 </style>

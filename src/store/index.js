@@ -14,6 +14,7 @@ export default new Vuex.Store({
       payload.count++;
     },
     addToCart(state,payload){
+      payload.checked = false;
       this.state.cartList.push(payload);  
     }
   },

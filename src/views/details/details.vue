@@ -12,7 +12,7 @@
       <goodList ref="goodList" :goods='recommend'></goodList>
     </scroll>   
     <backTop @click.native="returnTop" v-show="isShow"/>  
-    <detailButtonBar @addCart="addCart"></detailButtonBar>  
+    <detailButtonBar class="button" @addCart="addCart"></detailButtonBar>  
   </div>
 </template>
 
@@ -43,13 +43,15 @@ export default {
     addCart(){
       const obj = {};
       obj.title = this.goodsInfo.title;
-      obj.price = this.goodsInfo.newPrice;
+      obj.price = this.goodsInfo.highPrice;
       obj.img = this.topImg[0];
       obj.iid = this.iid;
+      obj.desc = this.goodsInfo.desc;
       // obj.count = 1;
 
       //通过mutation修改state
       this.$store.dispatch('addCart',obj);
+      this.$router.push('/buy');
     },
     debonce(func,delay){
      let timer = null;
@@ -171,7 +173,7 @@ export default {
   #details{
     height: 100vh;
     position: relative;
-    z-index: 1;
+    z-index: 3;
     background-color: #fff;
   }
   .content{

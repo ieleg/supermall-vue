@@ -41,6 +41,7 @@ export default {
     right: 0;
     background-color: #ffffff;
     display: flex;
+    z-index: 9;
     
   }
   .qleft{

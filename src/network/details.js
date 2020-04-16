@@ -26,6 +26,8 @@ export function getRecommend(){
       this.oldPrice = itemInfo.oldPrice;
       this.columns = columns;
       this.services = service;
+      this.desc = itemInfo.desc;
+      this.highPrice = itemInfo.highPrice;
     }
   }
 

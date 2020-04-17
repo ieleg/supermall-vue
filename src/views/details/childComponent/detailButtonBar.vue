@@ -42,6 +42,7 @@ export default {
     background-color: #ffffff;
     display: flex;
     z-index: 9;
+
     
   }
   .qleft{
@@ -49,29 +50,38 @@ export default {
     font-size: 8px;
     align-items: center;
     justify-content: space-around;
-    width: 40%;
-   text-align: center;
+    width: 45%;
+    text-align: center;
 
   }
+  .qleft div{
+    flex: 1;
+  }
   .qleft img{
-    width: 75%;
+    max-width: 40%;
   }
   .qleft p{
     margin-top: 2 px;
   }
 
   .qright{
+    position: absolute;
+    left: 50% ;
     display: flex;
-    width: 60%;
+    width: 50%;
     align-items: center;
+    line-height: 49px;
 
 
      /* flex-wrap: nowrap; */
   }
   .q1,.q2{
-    padding: 5px 13px;
+    flex: 1;
+    margin: 3px 0;
     color: #fff;
-    line-height: 35px;
+    text-align: center;
+    
+ 
   }
   .q1{
  

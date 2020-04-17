@@ -16,6 +16,9 @@ export default new Vuex.Store({
     addToCart(state,payload){
       payload.checked = false;
       this.state.cartList.push(payload);  
+    },
+    changeChecked(state,payload){
+      payload.checked = !payload.checked
     }
   },
   actions: {

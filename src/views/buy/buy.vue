@@ -2,9 +2,9 @@
   <div id="buy">
     <navbar class="navbar"><div slot="center">购物车({{itemLength}})</div></navbar>
     <scroll :pro='1' class="content">
-      <itemList></itemList>
+      <itemList :test="test"></itemList>
     </scroll>
-    <allSelect @click.native="selectAll"></allSelect>
+    <allSelect ></allSelect>
   </div>
 </template>
 
@@ -20,11 +20,7 @@ export default {
     }
   },
   methods:{
-    selectAll(){
-      this.$store.state.cartList.forEach(item => {
-        item.checked = !this.checked;
-      })
-    }
+
   },
   components:{
     navbar,itemList,scroll,allSelect,
@@ -32,6 +28,18 @@ export default {
   computed:{
     itemLength(){
       return this.$store.state.cartList.length;
+    },
+    test(){
+      function cnt(){
+        let cnt = 0;
+        return function(){
+          cnt++;
+          return cnt;
+        }
+      }
+      let t1=cnt();
+
+      return t1()
     }
   }
 }

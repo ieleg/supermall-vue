@@ -1,7 +1,7 @@
 <template>
   <div class="all-select">
     <div class="left">
-      <CheckButton @click.native="selectAll" class="a1"></CheckButton>
+      <CheckButton @click.native="selectAll" class="a1" :isChecked="this.$store.state.cartList.allChecked"></CheckButton>
       <span class="a2">全选</span>
     </div>
     <div class="middle">
@@ -19,21 +19,35 @@ import CheckButton from '@/components/content/checkButton/checkButton'
 export default {
   data(){
     return{
-      checked:false
+      
     }
   },
   components:{
     CheckButton,
   },
+  computed:{
+
+    
+  },
   methods:{
     selectAll(){
-      this.checked = !this.checked;
-      // console.log(this.checked);
-      this.$store.state.cartList.forEach((item) => {       
-        this.$store.commit('changeChecked',item);
-        console.log(item.checked);
+      if(this.$store.state.cartList.allChecked){
+        this.$store.state.cartList.allChecked = false;
+        this.$store.state.cartList.forEach(item => {
+          item.checked = false;
+        })
+      }else{
+        this.$store.state.cartList.allChecked = true;
+        this.$store.state.cartList.forEach(item => {
+          item.checked = true;
+        })
+      }
+      for(let i of this.$store.state.cartList){
+        console.log(i.checked);
         
-      })
+      }
+      console.log(this.$store.state.cartList);
+      
     }    
   },
   computed:{

@@ -20,6 +20,7 @@ export default new Vuex.Store({
     changeChecked(state,payload){
       payload.checked = !payload.checked
     }
+    
   },
   actions: {
     addCart(context,payload){

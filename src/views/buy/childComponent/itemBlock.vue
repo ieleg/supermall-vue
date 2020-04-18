@@ -39,6 +39,11 @@ export default {
   methods: {
     checkedChange: function () {
       this.itemInfo.checked = !this.itemInfo.checked;
+      if(!this.$store.state.cartList.some(item => !item.checked)){
+        this.$store.state.cartList.allChecked = true;
+      }else {
+        this.$store.state.cartList.allChecked = false;
+      }
     }
   }
 }

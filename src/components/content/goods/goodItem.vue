@@ -1,6 +1,6 @@
 <template>
   <div class="gooditem">
-    <img :src="imgPath" alt="" @load="imgUpdate" @click="imgClick">
+    <img v-lazy="imgPath" alt="" @load="imgUpdate" @click="imgClick">
     <div class="itemInfo">
       <p>{{goodsitem.title}}</p>
       <span class="price">{{(goodsitem.price)}}</span>
@@ -50,13 +50,14 @@ export default {
     width: 32%;
     padding-bottom: 40px;
     position: relative;
+    border-radius: 20px;
   }
   .gooditem img{
-    width: 100%;
+    width: 90%;
     border-radius: 3px;
   }
   .itemInfo{
-        font-size: 12px;
+    font-size: 12px;
     position: absolute;
     bottom: 5px;
     left: 0;

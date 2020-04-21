@@ -104,6 +104,8 @@ export default {
   }
   td{
     height: 20px;
+    margin-bottom: 5px;
+    padding: 1px;
   }
   .t1{
     width: 80px;

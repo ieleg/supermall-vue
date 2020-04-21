@@ -2,7 +2,7 @@
   <div id="buy">
     <navbar class="navbar"><div slot="center">购物车({{itemLength}})</div></navbar>
     <scroll :pro='1' class="content">
-      <itemList :test="test"></itemList>
+      <itemList></itemList>
     </scroll>
     <allSelect ></allSelect>
   </div>
@@ -29,18 +29,6 @@ export default {
     itemLength(){
       return this.$store.state.cartList.length;
     },
-    test(){
-      function cnt(){
-        let cnt = 0;
-        return function(){
-          cnt++;
-          return cnt;
-        }
-      }
-      let t1=cnt();
-
-      return t1()
-    }
   }
 }
 </script>

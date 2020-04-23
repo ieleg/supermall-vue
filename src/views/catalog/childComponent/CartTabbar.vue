@@ -57,9 +57,7 @@ export default {
     border: solid 2px #e8e8e8;
     font-size: 14px;
   }
-  .center{
-
-  }
+ 
   .icom-search{
    display: inline;
   }

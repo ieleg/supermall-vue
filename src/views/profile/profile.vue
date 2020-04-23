@@ -137,9 +137,7 @@ export default {
 .r2{
   display: inline;
 }
-.qq2{
 
-}
 .q2{
   height: 60px;
   display: flex;

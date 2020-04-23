@@ -9,7 +9,7 @@
         <img slot='img' src="~assets/img/tabbar/catalog.svg" alt="">
         <img slot='img-active' src="~assets/img/tabbar/catalog-active.svg" alt="">
 
-        <div slot='text'>分类</div>
+        <div slot='text'>消息</div>
       </tabbarItem>
       <tabbarItem path='/buy'>
         <img slot='img' src="~assets/img/tabbar/buy.svg" alt="">

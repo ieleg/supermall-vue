@@ -82,7 +82,8 @@ export default {
     return{
       
     }
-  }
+  },
+  
 }
 </script>
 

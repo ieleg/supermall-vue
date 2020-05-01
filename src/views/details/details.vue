@@ -125,7 +125,6 @@ export default {
   created(){
     // console.log(this.$route);
     //1保存传入的iid
-  
     this.iid = this.$route.params.iid;
     //2得到商品信息
     getDetail(this.iid).then(res => {

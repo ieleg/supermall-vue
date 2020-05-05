@@ -676,3 +676,4 @@ systemctl enable nginx.service//跟随系统启动
 
 主要还是centos版本问题，版本太高部署nginx老是出错
 
+bug:nginx 修改js文件，客户端没有更新

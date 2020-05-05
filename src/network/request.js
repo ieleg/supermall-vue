@@ -1,7 +1,7 @@
 import axios from 'axios'
 export function request(config) {
   const instance = axios.create({
-    baseURL:'http://123.207.32.32:8000/api/h8',
+    baseURL:'http://123.207.32.32:8000/xxx/xx',
     timeout:5000
   })
   //这是一个promise
